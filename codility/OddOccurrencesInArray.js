@@ -18,7 +18,7 @@ function solution(A) {
 }
 */
 
-//for solution, best solution so far
+//second solution, best solution so far
 function solution(A) {
     for (let i = 0; i < A.length; i++) {
         if(A[i] !== 'P'){
