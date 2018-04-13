@@ -32,6 +32,5 @@ function solution(n){
     return soma - 1
   }
 }
-
-console.log(solution(529)) //deve retornar 4
-console.log(solution(1041)) //deve retornar 5
+//console.log(solution(529)) //deve retornar 4
+//console.log(solution(1041)) //deve retornar 5
