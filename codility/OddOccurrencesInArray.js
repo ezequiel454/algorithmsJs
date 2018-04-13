@@ -1,5 +1,5 @@
 
-//high order Soluction
+//high order Soluction, dont cover everything
 /*
 function solution(A) {
     const listRemoved = []
@@ -18,12 +18,12 @@ function solution(A) {
 }
 */
 
-//for solution
+//for solution, best solution so far
 function solution(A) {
     for (let i = 0; i < A.length; i++) {
         if(A[i] !== 'P'){
             if(i+1 == A.length){
-                return A[0]
+                return A[i]
             }else{
                 for (let j = i+1; j < A.length; j++) {
                     if(A[i]==A[j]){
