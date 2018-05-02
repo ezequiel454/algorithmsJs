@@ -1,2 +1,3 @@
 # algorithmsJs
-Just for play
+
+Codility
