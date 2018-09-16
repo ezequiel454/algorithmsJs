@@ -1,40 +1,28 @@
-//try make better later, but its 100% on codility o(n * log n)
 function solution(A) {
-  let minValue = A.reduce((a,b) => Math.min(a,b), A[0])
-  if(minValue >= 2 ){
-    return 1
-  }
-  if(minValue < 0){
-    if(A.filter(a => a === 1).length === 0){
-      return 1
-    }else{
-      minValue = 1
+  let listaValues = []
+  let bigElement = 0
+  A.forEach(element => {
+    if(element > 0){
+      if(listaValues[element] === undefined){
+        listaValues[element] = element
+      }
     }
-  }
-  let maxValue = A.reduce((a,b) => Math.max(a,b), A[0])
-  if(minValue === 0 && maxValue === 0){
+  })
+  if(listaValues.length === 0){
     return 1
-  }
-  let result = 0
-  let cond = false
-  let finalList = []
-  for (let index = 0; index < A.length; index++) {
-    if(A[index] > 1){
-      if(finalList[A[index] -2] === undefined){
-        finalList[A[index] -2] = 1
+  }else{
+    for (let i = 1; i < listaValues.length; i++) {
+      const element = listaValues[i];
+      if(element === undefined){
+        return i;
+      }else{
+        if(element > bigElement){
+          bigElement = element
+        }
       }
     }
   }
-  for (let index = 0; index < finalList.length; index++) {
-    if(finalList[index] === undefined){
-      return index + 2
-    }
-  }
-  if(minValue === 1){
-    return maxValue + 1
-  }else{
-    return minValue -1
-  }
+  return bigElement+1
 }
 
 
@@ -45,3 +33,24 @@ console.log(solution(B)) //1
 console.log(solution([0])) //1
 console.log(solution([4, 5, 6, 2])) //1
 console.log(solution([-10000000, 10000000]))  //1
+
+/* task
+This is a demo task.
+
+Write a function:
+
+function solution(A);
+
+that, given an array A of N integers, returns the smallest positive integer (greater than 0) that does not occur in A.
+
+For example, given A = [1, 3, 6, 4, 1, 2], the function should return 5.
+
+Given A = [1, 2, 3], the function should return 4.
+
+Given A = [−1, −3], the function should return 1.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [1..100,000];
+each element of array A is an integer within the range [−1,000,000..1,000,000].
+*/
