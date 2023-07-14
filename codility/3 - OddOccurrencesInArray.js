@@ -1,4 +1,3 @@
-
 //high order Soluction, dont cover everything
 /*
 function solution(A) {
@@ -45,11 +44,10 @@ function solution(A) {
 function solution(A) {
   let result = 0
   for (let i = 0; i < A.length; i++) {
-    result^=A[i]
+    result ^= A[i]
   }
   return result
 }
-
 
 console.log(solution([9, 3, 9, 3, 9, 7, 9]))
 
@@ -84,3 +82,56 @@ N is an odd integer within the range [1..1,000,000];
 each element of array A is an integer within the range [1..1,000,000,000];
 all but one of the values in A occur an even number of times.
 */
+
+//v2
+function binaryXOR(a, b) {
+  let decimalA = parseInt(a, 2)
+  let decimalB = parseInt(b, 2)
+  let result = decimalA ^ decimalB
+  let binaryResult = result.toString(2).padStart(8, '0')
+  return binaryResult
+}
+
+// same question with stirngs
+
+function binaryXOR(a, b) {
+  let decimalA = parseInt(a, 2)
+  let decimalB = parseInt(b, 2)
+  let result = decimalA ^ decimalB
+  let binaryResult = result.toString(2).padStart(8, '0')
+  return binaryResult
+}
+
+function stringToBinary(str) {
+  let binary = ''
+  for (let i = 0; i < str.length; i++) {
+    let charCode = str.charCodeAt(i)
+    let binaryValue = charCode.toString(2)
+    binary += binaryValue.padStart(8, '0') // Add leading zeros to ensure 8-bit representation
+  }
+  return binary === '' ? 0 : binary
+}
+
+function binaryToString(binary) {
+  let bytes = []
+  for (let i = 0; i < binary.length; i += 8) {
+    let binaryByte = binary.substr(i, 8)
+    let decimalValue = parseInt(binaryByte, 2)
+    bytes.push(decimalValue)
+  }
+  let encodedString = new TextDecoder().decode(new Uint8Array(bytes))
+  return encodedString
+}
+
+function solutionString(A) {
+  return binaryToString(
+    A.reduce(
+      (prev, curr) =>
+        binaryXOR(
+          stringToBinary(prev.toString()),
+          stringToBinary(curr.toString())
+        ),
+      ''
+    )
+  )
+}

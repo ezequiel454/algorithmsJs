@@ -1,9 +1,9 @@
 const binario = (decimalParam) => {
   let decimal = decimalParam
   let lista = []
-  while(decimal !== 0){
-    lista.unshift(decimal%2)
-    decimal = Math.floor(decimal/2)
+  while (decimal !== 0) {
+    lista.unshift(decimal % 2)
+    decimal = Math.floor(decimal / 2)
   }
   return lista
 }
@@ -13,15 +13,15 @@ const solution = (N) => {
   let resposta = 0
   let condAchou1 = false
   let somaTemp = 0
-  listaBinaria.forEach((e, index)=> {
-    if(e === 1 && !condAchou1){
+  listaBinaria.forEach((e, index) => {
+    if (e === 1 && !condAchou1) {
       condAchou1 = true
-    }else if(e === 1 && condAchou1){
-      if(listaBinaria[index-1] !== 1){
-        resposta = resposta < somaTemp ? somaTemp : resposta 
+    } else if (e === 1 && condAchou1) {
+      if (listaBinaria[index - 1] !== 1) {
+        resposta = resposta < somaTemp ? somaTemp : resposta
         somaTemp = 0
       }
-    }else if(e === 0 && condAchou1){
+    } else if (e === 0 && condAchou1) {
       somaTemp++
     }
   })
@@ -30,7 +30,6 @@ const solution = (N) => {
 
 //console.log(solution(529)) //deve retornar 4
 //console.log(solution(1041)) //deve retornar 5
-
 
 /*
 Task description
@@ -50,3 +49,32 @@ Write an efficient algorithm for the following assumptions:
 
 N is an integer within the range [1..2,147,483,647].
 Copyright 2009–2018 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.*/
+
+// v2
+function solution(N) {
+  const binaryRepresentation = N.toString(2)
+  let list = []
+  let valid = false
+  let count = 0
+  for (const element in binaryRepresentation) {
+    const sum = binaryRepresentation[element]
+    if (sum === '1') {
+      if (valid === true && count > 0) {
+        list.push(count)
+        count = 0
+      } else {
+        valid = true
+      }
+    } else if (valid === true && sum !== '1') {
+      count++
+    }
+  }
+
+  return maxNumber(list)
+}
+
+const maxNumber = (list) => {
+  return list.reduce((prev, curent) => {
+    return curent > prev ? curent : prev
+  }, 0)
+}

@@ -1,31 +1,31 @@
 function solution(A, K) {
-    if(A.length === K){
-        return A
-    }
-    if(A.filter(p => p === 0).length === A.length ){
-        return A
-    }
-    if(A.length < K){
-        let remain = K%A.length
-        return results(remain, A) 
-    }else{
-        return results(K, A) 
-    } 
+  if (A.length === K) {
+    return A
+  }
+  if (A.filter((p) => p === 0).length === A.length) {
+    return A
+  }
+  if (A.length < K) {
+    let remain = K % A.length
+    return results(remain, A)
+  } else {
+    return results(K, A)
+  }
 }
-const results = (K, list) =>{
-    let temp = list
-    let result = temp
-    for (let index = 0; index < K; index++) {
-        result = []
-        result.push(temp[temp.length - 1])
-        temp.map(p => result.push(p))
-        result.pop(temp.length - 1)
-        temp = result
-    }
-    return result
+const results = (K, list) => {
+  let temp = list
+  let result = temp
+  for (let index = 0; index < K; index++) {
+    result = []
+    result.push(temp[temp.length - 1])
+    temp.map((p) => result.push(p))
+    result.pop(temp.length - 1)
+    temp = result
+  }
+  return result
 }
 
-console.log(solution([4,3,6], 8))
+console.log(solution([4, 3, 6], 8))
 /*Task
 
 An array A consisting of N integers is given. Rotation of the array means that each element is shifted right by one index, and the last element of the array is moved to the first place. For example, the rotation of array A = [3, 8, 9, 7, 6] is [6, 3, 8, 9, 7] (elements are shifted right by one index and 6 is moved to the first place).
@@ -64,3 +64,20 @@ Assume that:
 N and K are integers within the range [0..100];
 each element of array A is an integer within the range [−1,000..1,000].
 In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.*/
+
+//v2
+function solutionRotation(A, K) {
+  const len = A.length
+  if (len === 0 || K % len === 0) {
+    return A
+  }
+
+  const pos = K > len ? K % len : K
+  const list = []
+  for (let index = 0; index < len; index++) {
+    const countPos = index + pos < len ? index + pos : index + pos - len
+    list[countPos] = A[index]
+  }
+
+  return list
+}
